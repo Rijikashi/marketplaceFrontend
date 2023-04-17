@@ -1,18 +1,38 @@
 import {useState, useEffect, Form, Button} from 'react'
-import SignIn from './signin.js'
-import UserInfo from './userinfo.js'
+import {useLocation} from 'react-router-dom'
+import SignIn from '../components/signin.js'
+import UserInfo from '../components/userinfo.js'
+import Header from '../components/header.js'
 
-const Login = ( {signedIn,idToken,userName} ) => {
+const Account = () => {
+
+  let location = useLocation()
+
+  const [idToken, setIdToken] = useState("")
+  const [userName, setUserName] = useState("")
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    if(location.state != null){
+      if(location.state.admin == 1){
+        setIsAdmin(true)
+      }
+      setUserName(location.state.username)
+      setIdToken(location.state.id_token)
+    }
+  }, [location])
+
   return (
-    <div className = 'loginWindow'>
-      {signedIn ? (
+    <div>
+      <Header userName = {userName} idToken = {idToken} isAdmin = {isAdmin}/>
+
+      {(userName != "") ? (
         <UserInfo idToken = {idToken} userName ={userName}/>
       )
       :
       (
         <SignIn />
       )}
-
     </div>
   )
 }
@@ -30,4 +50,4 @@ const Login = ( {signedIn,idToken,userName} ) => {
 //     <input type="submit" value="Login" />
 //   </form>
 // {createAccountSuccess ? (<h3> Account successfully created! </h3>) : (<></>)}
-export default Login
+export default Account
