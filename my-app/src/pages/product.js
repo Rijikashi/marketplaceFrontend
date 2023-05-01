@@ -1,39 +1,66 @@
-import {useLocation} from 'react-router-dom'
+import {useLocation,useNavigate} from 'react-router-dom'
 import {useEffect,useState} from 'react'
 import Header from '../components/header.js'
-
+import Button from 'react-bootstrap/Button'
 const Product = () => {
 
   let location = useLocation()
+  const navigate = useNavigate()
 
   const [idToken, setIdToken] = useState("")
   const [userName, setUserName] = useState("")
   const [isAdmin, setIsAdmin] = useState(false)
   const [prodName,setProdName] = useState("test")
+  const [cart,setCart] = useState([])
+  const [added,setAdded] = useState(false)
+  // function handleAtC(){
+  //   console.log(cart)
+  //   console.log(location.state.item)
+  //   setCart([...cart],"prodName")
+  //   setCart([...cart],"asdf")
+  //   setCart([...cart],prodName)
+  //   console.log(cart)
+  //   navigate("/",{state:{username:userName, admin:isAdmin, idToken:idToken},cart:cart})
+  // }
 
   useEffect(() => {
     if(location.state != null){
-      if(location.state.admin == 1){
+      if(location.state.isAdmin == 1){
         setIsAdmin(true)
       }
-      setUserName(location.state.username)
-      setIdToken(location.state.id_token)
+      else{
+        setIsAdmin(false)
+      }
+      if(location.state.cart != null){
+        setCart(location.state.cart)
+      }
+      setUserName(location.state.userName)
+      setIdToken(location.state.idToken)
+      console.log(location.state.item)
+      setProdName(location.state.item.name)
     }
   }, [location])
 
-  // useEffect( ()=> {
-  //   if(state != null){
-  //     console.log(state)
-  //     console.log(state.item.name)
-  //     setProdName(state.item.name)
-  //   }
-  // },[state])
+  useEffect(() =>{
+    if(added == true){
+      navigate("/",{state:{username:userName, admin:isAdmin, idToken:idToken, cart:cart}})
+    }
+  },[added])
   return(
     <div>
-      <Header idToken = {idToken} userName = {userName} isAdmin = {isAdmin}/>
+      <Header idToken = {idToken} userName = {userName} isAdmin = {isAdmin} cart = {cart}/>
 
       Hi from product
       product is {prodName}
+      <Button onClick = {() => {
+        setCart((cart) => [
+          ...cart,
+          location.state.item
+        ]);
+        setAdded(true)
+      }} >
+        Add to cart
+      </Button>
     </div>
   )
 

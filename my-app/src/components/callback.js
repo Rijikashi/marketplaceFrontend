@@ -38,7 +38,7 @@ const Callback = ( {idToken, setIdToken}) => {
         .then((response) => response.json())
         .then((json_two) => {
           const parsedData = JSON.parse(json_two)
-          navigate("/", {state: {username: parsedData.username, admin: parsedData.admin, id_token:id_token}})
+          navigate("/", {state: {userName: parsedData.username, isAdmin: parsedData.admin, idToken:id_token}})
         })
       });
     }

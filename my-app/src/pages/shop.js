@@ -10,6 +10,8 @@ const Shop = () => {
   const [idToken, setIdToken] = useState("")
   const [userName, setUserName] = useState("")
   const [isAdmin, setIsAdmin] = useState(false)
+  const [cart,setCart] = useState([])
+
   const [shopType, setShopType] = useState("")
   const [shopItems,setShopItems] = useState([])
   const [shopLoaded,setShopLoaded] = useState(false)
@@ -17,11 +19,17 @@ const Shop = () => {
 
   useEffect(() => {
     if(location.state != null){
-      if(location.state.admin == 1){
+      if(location.state.isAdmin == 1){
         setIsAdmin(true)
       }
-      setUserName(location.state.username)
-      setIdToken(location.state.id_token)
+      else{
+        setIsAdmin(false)
+      }
+      if(location.state.cart != null){
+        setCart(location.state.cart)
+      }
+      setUserName(location.state.userName)
+      setIdToken(location.state.idToken)
       setShopType(location.state.shopType)
     }
   }, [location])
@@ -41,11 +49,11 @@ const Shop = () => {
 
   return(
     <>
-      <Header idToken = {idToken} userName = {userName} isAdmin = {isAdmin}/>
+      <Header idToken = {idToken} userName = {userName} isAdmin = {isAdmin} cart = {cart}/>
       <div className = 'shop'>
       {
         shopItems.map(shopItem =>(
-          <ShopItem item = {shopItem}/>
+          <ShopItem item = {shopItem} idToken = {idToken} userName = {userName} isAdmin = {isAdmin} cart ={cart}/>
         ))
       }
       </div>

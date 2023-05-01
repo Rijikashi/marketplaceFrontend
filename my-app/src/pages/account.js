@@ -11,23 +11,30 @@ const Account = () => {
   const [idToken, setIdToken] = useState("")
   const [userName, setUserName] = useState("")
   const [isAdmin, setIsAdmin] = useState(false)
+  const [cart,setCart] = useState([])
 
   useEffect(() => {
     if(location.state != null){
-      if(location.state.admin == 1){
+      if(location.state.isAdmin == 1){
         setIsAdmin(true)
       }
-      setUserName(location.state.username)
-      setIdToken(location.state.id_token)
+      else{
+        setIsAdmin(false)
+      }
+      if(location.state.cart != null){
+        setCart(location.state.cart)
+      }
+      setUserName(location.state.userName)
+      setIdToken(location.state.idToken)
     }
   }, [location])
 
   return (
     <div>
-      <Header userName = {userName} idToken = {idToken} isAdmin = {isAdmin}/>
+      <Header userName = {userName} idToken = {idToken} isAdmin = {isAdmin} cart = {cart}/>
 
-      {(userName != "") ? (
-        <UserInfo idToken = {idToken} userName ={userName}/>
+      {(userName !== "") ? (
+        <UserInfo idToken = {idToken} userName ={userName} isAdmin = {isAdmin} setUserName = {setUserName} setIdToken = {setIdToken} setIsAdmin = {setIsAdmin}/>
       )
       :
       (
