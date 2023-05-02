@@ -51,9 +51,9 @@ const Header = ( {idToken, userName,isAdmin,cart} ) => {
     IdToken is : {idToken}
     UserName is :{userName}
     isAdmin is : {isAdmin}
-      <Button>
-        <img src = {logoImage} alt = "Logo" onClick = {handleLogoClick} width = "20" height = "20" />
-      </Button>
+      <button onClick = {handleLogoClick}>
+        <img src = {logoImage} alt = "Logo"  width = "20" height = "20" />
+      </button>
 
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -65,12 +65,12 @@ const Header = ( {idToken, userName,isAdmin,cart} ) => {
         </Dropdown.Menu>
       </Dropdown>
 
-      <Button onClick = {handleContactClick}>
+      <button onClick = {handleContactClick}>
         contact
-      </Button>
-      <Button onClick = {handleAboutClick}>
+      </button>
+      <button onClick = {handleAboutClick}>
         about
-      </Button>
+      </button>
 
       { (userName == "") ?
       (<> </>)
@@ -80,17 +80,17 @@ const Header = ( {idToken, userName,isAdmin,cart} ) => {
       </>)
       }
 
-      <Button size = 'sm'>
-        <img src = {loginImage} alt = "Login" onClick = {handleLoginClick} width="20" height ="20" />
-      </Button>
-      <Button>
-        <img src =  {cartImage} alt = "Cart" onClick = {handleCartClick} width ="20" height = "20"/>
-      </Button>
+      <button onClick = {handleLoginClick} size = 'sm'>
+        <img src = {loginImage} alt = "Login"  width="20" height ="20" />
+      </button>
+      <button onClick = {handleCartClick}>
+        <img src =  {cartImage} alt = "Cart"  width ="20" height = "20"/>
+      </button>
     <Modal isOpen={modalShow}>
       <div>
-        <Button onClick = {handleCartClick}>
+        <button onClick = {handleCartClick}>
           X
-        </Button>
+        </button>
         <Cart idToken = {idToken} userName = {userName} isAdmin = {isAdmin} cart = {cart} />
       </div>
     </Modal>

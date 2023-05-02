@@ -5,10 +5,8 @@ const UserInfo = ( {idToken,userName,isAdmin,setIsAdmin,setUserName,setIdToken} 
   const navigate = useNavigate()
 
   function handleLogout(){
-    setIsAdmin(false)
-    setUserName("")
-    setIdToken("")
-    navigate("/",{state: {userName:userName, isAdmin:isAdmin, idToken:idToken}})
+    let blank = []
+    navigate("/",{state: {userName:"", isAdmin:0, idToken:"",cart:blank}})
   }
 
   return(

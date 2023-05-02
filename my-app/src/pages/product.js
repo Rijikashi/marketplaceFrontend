@@ -13,15 +13,6 @@ const Product = () => {
   const [prodName,setProdName] = useState("test")
   const [cart,setCart] = useState([])
   const [added,setAdded] = useState(false)
-  // function handleAtC(){
-  //   console.log(cart)
-  //   console.log(location.state.item)
-  //   setCart([...cart],"prodName")
-  //   setCart([...cart],"asdf")
-  //   setCart([...cart],prodName)
-  //   console.log(cart)
-  //   navigate("/",{state:{username:userName, admin:isAdmin, idToken:idToken},cart:cart})
-  // }
 
   useEffect(() => {
     if(location.state != null){
@@ -36,14 +27,13 @@ const Product = () => {
       }
       setUserName(location.state.userName)
       setIdToken(location.state.idToken)
-      console.log(location.state.item)
       setProdName(location.state.item.name)
     }
   }, [location])
 
   useEffect(() =>{
     if(added == true){
-      navigate("/",{state:{username:userName, admin:isAdmin, idToken:idToken, cart:cart}})
+      navigate("/",{state:{userName:userName, admin:isAdmin, idToken:idToken, cart:cart}})
     }
   },[added])
   return(
